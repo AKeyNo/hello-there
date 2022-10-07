@@ -1,6 +1,6 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // Only needed when using a cloud provider that doesn't support the creation of new databases, like Heroku. Learn more: https://pris.ly/migrate-shadow
 }
 
@@ -10,18 +10,18 @@ generator client {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -37,13 +37,23 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id         String    @id @default(cuid())
+  username   String
+  firstName  String?
+  lastName   String?
+  aboutMe    String?
+  location   String?
+  joinDate   DateTime?
+  followedBy User[]    @relation("UserFollows")
+  following  User[]    @relation("UserFollows")
+
+  hashedPassword String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  accounts       Account[]
+  sessions       Session[]
+  Sayings        Saying[]
 }
 
 model VerificationToken {
@@ -52,4 +62,15 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Saying {
+  id                String   @id @default(cuid())
+  creatorID         String
+  repliedToSayingID String?
+  text              String
+  time              DateTime
+  creator           User     @relation(fields: [creatorID], references: [id], onDelete: Cascade)
+  repliedToSaying   Saying?  @relation("SayingResponses", fields: [repliedToSayingID], references: [id], onDelete: Cascade)
+  responseSayings   Saying[] @relation("SayingResponses")
 }
