@@ -54,7 +54,7 @@ export default NextAuth({
         // console.log(credentials);
 
         const user = await prisma.user.findUnique({
-          where: { email: credentials.username },
+          where: { username: credentials.username },
         });
 
         if (!user) {
