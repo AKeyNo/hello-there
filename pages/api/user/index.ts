@@ -44,13 +44,14 @@ async function handlePOST(res: NextApiResponse, req: NextApiRequest) {
   }
 
   const hashedPassword: string = hashPassword(req.body.password);
+  const joinDate: Date = new Date();
 
   const user = await prisma.user.create({
-    data: { email, username, hashedPassword, firstName, lastName },
+    data: { email, username, hashedPassword, firstName, lastName, joinDate },
   });
   return res
     .status(200)
-    .json({ email, username, hashedPassword, firstName, lastName });
+    .json({ email, username, hashedPassword, firstName, lastName, joinDate });
 }
 
 // DELETE /api/user
