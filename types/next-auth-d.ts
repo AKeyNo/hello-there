@@ -11,7 +11,11 @@ declare module 'next-auth' {
 /** Example on how to extend the built-in types for JWT */
 declare module 'next-auth/jwt' {
   interface JWT {
-    /** This is an example. You can find me in types/next-auth.d.ts */
-    bar: number;
+    email: string;
+    picture: string;
+    sub: string;
+    id: string;
+    exp: Number;
+    jti: string;
   }
 }

@@ -16,7 +16,7 @@ export default async function handler(
       await handleDELETE(res, req);
       break;
     default:
-      res.setHeader('Allow', ['POST']);
+      res.setHeader('Allow', ['POST', 'DELETE']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

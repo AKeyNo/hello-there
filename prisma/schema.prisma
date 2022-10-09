@@ -69,7 +69,7 @@ model Saying {
   creatorID         String
   repliedToSayingID String?
   text              String
-  time              DateTime
+  createdAt         DateTime @default(now())
   creator           User     @relation(fields: [creatorID], references: [id], onDelete: Cascade)
   repliedToSaying   Saying?  @relation("SayingResponses", fields: [repliedToSayingID], references: [id], onDelete: Cascade)
   responseSayings   Saying[] @relation("SayingResponses")

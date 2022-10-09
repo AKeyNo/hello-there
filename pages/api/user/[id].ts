@@ -25,7 +25,7 @@ async function handleGET(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
 
   try {
-    const user: any = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: id as string },
     });
 
