@@ -1,11 +1,47 @@
-import { getCsrfToken } from 'next-auth/react';
+import { getCsrfToken, signIn } from 'next-auth/react';
+import Router from 'next/router';
+import { useRef, useState } from 'react';
 
 export default function SignIn({ csrfToken }: any) {
+  const username = useRef<HTMLInputElement | null>(null);
+  const password = useRef<HTMLInputElement | null>(null);
+  const [error, setError] = useState('');
+
+  const signInSubmit = async () => {
+    window.event?.preventDefault();
+
+    await signIn('credentials', {
+      redirect: false,
+      username: username.current?.value,
+      password: password.current?.value,
+    }).then((response: any) => {
+      console.log('response', response);
+      if (response!.ok) {
+        Router.push('/');
+      } else if (response!.error == 'CredentialsSignin') {
+        setError('Invalid username or password!');
+      } else {
+        setError('Unknown error has occurred!');
+      }
+    });
+  };
+
   return (
     <div className='flex items-center justify-center w-screen h-screen bg-gray-900'>
+      {error ? (
+        <div
+          id='sign-in-error'
+          className='absolute top-0 w-screen py-6 text-center bg-red-600 rounded-lg shadow-xl animate-fade-in'
+        >
+          {error}
+        </div>
+      ) : (
+        <></>
+      )}
+
       <div className='px-32 py-16 bg-gray-800 rounded-lg shadow-xl'>
         <h1 className='text-xl font-extrabold'>Login</h1>
-        <form method='post' action='/api/auth/callback/credentials'>
+        <form method='post' onSubmit={signInSubmit}>
           <input name='csrfToken' type='hidden' defaultValue={csrfToken} />
           <label className='block py-4'>
             Username
@@ -13,6 +49,7 @@ export default function SignIn({ csrfToken }: any) {
               name='username'
               type='text'
               className='block w-full h-8 bg-gray-700 rounded-lg shadow-sm'
+              ref={username}
             />
           </label>
           <label className='block pb-4'>
@@ -21,6 +58,7 @@ export default function SignIn({ csrfToken }: any) {
               name='password'
               type='password'
               className='block w-full h-8 bg-gray-700 rounded-md shadow-sm'
+              ref={password}
             />
           </label>
           <button
