@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
 import Loading from '../components/loading';
+import Menu from '../components/menu';
 import SayingsList from '../components/sayings-list';
 import Welcome from '../components/welcome';
 
@@ -13,7 +14,7 @@ const Home: NextPage = () => {
   } else if (session) {
     return (
       <div className='flex max-h-screen'>
-        <div className='w-2/6'></div>
+        <Menu />
         <SayingsList saying={null} />
         <div className='w-2/6'></div>
       </div>
