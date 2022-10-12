@@ -1,20 +1,23 @@
 import type { NextPage } from 'next';
-import { signIn, useSession } from 'next-auth/react';
-import Image from 'next/image';
-import { CircleNotch } from 'phosphor-react';
+import { useSession } from 'next-auth/react';
+import Loading from '../components/loading';
+import SayingsList from '../components/sayings-list';
 import Welcome from '../components/welcome';
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession();
 
+  // shows the welcome page only when the user is not logged in
   if (status === 'loading') {
+    return <Loading />;
+  } else if (session) {
     return (
-      <div className='flex items-center justify-center h-screen bg-gray-900'>
-        <CircleNotch size={32} weight='fill' className='animate-spin' />
+      <div className='flex max-h-screen'>
+        <div className='w-2/6'></div>
+        <SayingsList saying={null} />
+        <div className='w-2/6'></div>
       </div>
     );
-  } else if (session) {
-    return <div>Hello {session.user?.email}</div>;
   } else {
     return <Welcome />;
   }
