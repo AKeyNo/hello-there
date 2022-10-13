@@ -1,4 +1,5 @@
 import { getCsrfToken, signIn } from 'next-auth/react';
+import Link from 'next/link';
 import Router from 'next/router';
 import { useRef, useState } from 'react';
 
@@ -15,7 +16,6 @@ export default function SignIn({ csrfToken }: any) {
       username: username.current?.value,
       password: password.current?.value,
     }).then((response: any) => {
-      console.log('response', response);
       if (response!.ok) {
         Router.push('/');
       } else if (response!.error == 'CredentialsSignin') {
@@ -69,9 +69,11 @@ export default function SignIn({ csrfToken }: any) {
           </button>
         </form>
         <hr className='w-full h-1 my-12 duration-100 rounded-lg bg-slate-50 opacity-10' />
-        <button className='block w-full px-32 py-4 font-bold duration-150 bg-gray-700 rounded-md shadow-lg text-slate-400 hover:text-white hover:bg-slate-500 hover:shadow-md'>
-          Create an account
-        </button>
+        <Link href='/auth/signup'>
+          <button className='block w-full px-32 py-4 font-bold duration-150 bg-gray-700 rounded-md shadow-lg text-slate-400 hover:text-white hover:bg-slate-500 hover:shadow-md'>
+            Create an account
+          </button>
+        </Link>
       </div>
     </div>
   );

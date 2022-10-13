@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import sha256 from 'crypto-js/sha256';
+import { SignUpErrors } from '../../../types/types';
 
 const prisma = new PrismaClient();
 
@@ -23,6 +24,8 @@ export default async function handler(
 
 // POST /api/user
 async function handlePOST(res: NextApiResponse, req: NextApiRequest) {
+  let errors: SignUpErrors = {} as SignUpErrors;
+
   if (isMissingFields(req.body)) {
     return res.status(400).json({ message: 'Missing fields.' });
   }
@@ -30,16 +33,28 @@ async function handlePOST(res: NextApiResponse, req: NextApiRequest) {
   const { email, username, password, firstName, lastName } = req.body;
 
   if (await isEmailNotUnique(email)) {
-    return res.status(400).json({ message: 'Email is not unique.' });
+    errors.emailError = 'Email is not unique!';
   }
 
   if (await isUsernameNotUnique(username)) {
-    return res.status(400).json({ message: 'Username is not unique.' });
+    errors.usernameError = 'Username is not unique!';
   }
 
   if (isPasswordWeak(password)) {
+    errors.passwordError = 'Pass is too weak!';
+  }
+
+  if (
+    errors.emailError != undefined ||
+    errors.usernameError != undefined ||
+    errors.passwordError != undefined
+  ) {
+    const { emailError, usernameError, passwordError } = errors;
+
     return res.status(400).json({
-      message: 'Your password is not strong enough.',
+      emailError,
+      usernameError,
+      passwordError,
     });
   }
 
@@ -75,11 +90,10 @@ const hashPassword = (password: string) => {
 
 const isMissingFields = (body: any) => {
   return (
-    !body.email ||
-    !body.username ||
-    !body.password ||
-    !body.firstName ||
-    !body.lastName
+    !body.email || !body.username || !body.password
+    // ||
+    // !body.firstName ||
+    // !body.lastName
   );
 };
 

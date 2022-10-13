@@ -1,5 +1,6 @@
 import { signIn } from 'next-auth/react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Welcome = (): JSX.Element => {
   return (
@@ -20,13 +21,14 @@ const Welcome = (): JSX.Element => {
         <h2 className='py-16 text-xl font-bold drop-shadow-md'>
           Join Hello There today.
         </h2>
-        <button
-          id='sign-up'
-          className='block w-64 h-16 p-4 my-4 font-bold text-left duration-300 bg-gray-800 rounded-lg text-slate-400 hover:text-white drop-shadow-xl'
-          onClick={() => signIn()}
-        >
-          Sign up
-        </button>
+        <Link href='/auth/signup'>
+          <button
+            id='sign-up'
+            className='block w-64 h-16 p-4 my-4 font-bold text-left duration-300 bg-gray-800 rounded-lg text-slate-400 hover:text-white drop-shadow-xl'
+          >
+            Sign up
+          </button>
+        </Link>
         <button
           id='sign-in'
           className='block w-64 h-16 p-4 font-bold text-left duration-300 bg-gray-800 rounded-lg text-slate-400 hover:text-white drop-shadow-xl'
