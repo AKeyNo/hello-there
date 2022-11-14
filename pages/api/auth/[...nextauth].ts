@@ -141,11 +141,39 @@ export default NextAuth({
       if (account) {
         token.accessToken = account.access_token;
       }
+
       return token;
     },
     // async signIn({ user, account, profile, email, credentials }) { return true },
     // async redirect({ url, baseUrl }) { return baseUrl },
-    // async session({ session, token, user }) { return session },
+    async session({ session, token, user }) {
+      const currentUser = await prisma.user.findUnique({
+        where: { email: session.user?.email as string },
+      });
+
+      if (currentUser == null) {
+        console.error(`${session.user?.email} was not found!`);
+        return session;
+      }
+
+      // console.log('currentUser', currentUser);
+      const { username, firstName, lastName, id } = currentUser;
+
+      session.user.id = id;
+
+      if (username) {
+        session.user.username = username;
+      } else {
+        session.user.email = session.user.email;
+      }
+
+      if (firstName && lastName)
+        session.user.name = (firstName + ' ' + lastName).trim();
+      else if (username) session.user.name = username;
+
+      console.log('session', session);
+      return session;
+    },
     // async jwt({ token, user, account, profile, isNewUser }) { return token }
   },
 
