@@ -43,8 +43,8 @@ model User {
   aboutMe    String?
   location   String?
   joinDate   DateTime?
-  followedBy User[]    @relation("UserFollows")
-  following  User[]    @relation("UserFollows")
+  followers  Follows[]    @relation("following")
+  following  Follows[]    @relation("follower")
 
   hashedPassword String?
   email          String?   @unique
@@ -53,6 +53,15 @@ model User {
   accounts       Account[]
   sessions       Session[]
   Sayings        Saying[]
+}
+
+model Follows {
+  follower    User @relation("follower", fields: [followerId], references: [id])
+  followerId  String
+  following   User @relation("following", fields: [followingId], references: [id])
+  followingId String
+
+  @@id([followerId, followingId])
 }
 
 model VerificationToken {
