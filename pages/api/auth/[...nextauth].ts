@@ -171,7 +171,7 @@ export default NextAuth({
         session.user.name = (firstName + ' ' + lastName).trim();
       else if (username) session.user.name = username;
 
-      console.log('session', session);
+      // console.log('session', session);
       return session;
     },
     // async jwt({ token, user, account, profile, isNewUser }) { return token }

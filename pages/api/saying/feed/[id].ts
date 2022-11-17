@@ -35,7 +35,7 @@ async function handleGET(res: NextApiResponse, req: NextApiRequest) {
         take: 10,
         orderBy: { createdAt: 'desc' },
       });
-      console.log(latestSayings);
+      // console.log(latestSayings);
       return res.status(200).json(latestSayings);
     }
 

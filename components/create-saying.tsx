@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
+import { mutate } from 'swr';
 
 const CreateSaying = (): JSX.Element => {
-  const session = useSession();
+  const { data: session, status } = useSession();
   const [createSayingText, setCreateSayingText] = useState('');
   const MAX_CHARACTER_COUNT: number = process.env.SAYING_CHARACTER_LENGTH
     ? parseInt(process.env.SAYING_CHARACTER_LENGTH)
@@ -17,14 +18,21 @@ const CreateSaying = (): JSX.Element => {
 
   const submitSaying = async () => {
     window.event?.preventDefault();
-    console.log(createSayingText);
-    const saying = await axios.post('/api/saying', {
-      text: createSayingText,
+
+    const updateWithNewSaying = async () => {
+      await axios.post('/api/saying', {
+        text: createSayingText,
+      });
+    };
+
+    mutate(`/api/saying/feed/${session.user.id}`, updateWithNewSaying, {
+      populateCache: (updatedNewSaying, sayings) => {
+        return [sayings];
+      },
     });
-    console.log(saying);
   };
 
-  const { id, username, email, name } = session.data!.user;
+  const { id, username, email, name } = session.user;
   return (
     <div className='flex flex-col items-center justify-center w-full p-8 border-b-4 border-gray-700'>
       <div className='flex items-center w-full h-full'>

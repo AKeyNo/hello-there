@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 
 const SayingBox = (props: { saying: Saying }) => {
   const router = useRouter();
+
+  if (!props.saying) return <></>;
   const { id, creatorID, text, createdAt } = props.saying;
 
   const onSayingClicked = () => {
