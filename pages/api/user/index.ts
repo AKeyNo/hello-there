@@ -1,9 +1,7 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '../../../lib/prismadb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import sha256 from 'crypto-js/sha256';
 import { SignUpErrors } from '../../../types/types';
-
-const prisma = new PrismaClient();
 
 export default async function handler(
   req: NextApiRequest,

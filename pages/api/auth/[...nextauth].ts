@@ -1,12 +1,10 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
+import prisma from '../../../lib/prismadb';
 import EmailProvider from 'next-auth/providers/email';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import sha256 from 'crypto-js/sha256';
-
-const prisma = new PrismaClient();
 
 export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET,

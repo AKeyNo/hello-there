@@ -1,9 +1,8 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '../../../lib/prismadb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getToken, JWT } from 'next-auth/jwt';
 import { isAuthenticated } from '../../../lib/authentication';
 
-const prisma = new PrismaClient();
 const secret = process.env.NEXTAUTH_SECRET;
 
 export default async function handler(
