@@ -32,7 +32,11 @@ async function handleGET(res: NextApiResponse, req: NextApiRequest) {
         skip: 0,
         take: 10,
         orderBy: { createdAt: 'desc' },
+        include: {
+          creator: { select: { username: true } },
+        },
       });
+
       // console.log(latestSayings);
       return res.status(200).json(latestSayings);
     }

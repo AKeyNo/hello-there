@@ -1,5 +1,18 @@
 import React from 'react';
 
+interface CreatorUsername {
+  username: string;
+}
+
+export interface SayingInSayingBox {
+  id: string;
+  creatorID: string;
+  repliedToSayingID: string | null;
+  text: string;
+  createdAt: Date;
+  creator?: CreatorUsername;
+}
+
 export interface MenuButtonProps {
   data: {
     clickHandler?: (e: React.MouseEvent<HTMLButtonElement>) => void;

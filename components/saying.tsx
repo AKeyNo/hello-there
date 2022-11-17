@@ -1,12 +1,12 @@
-import { Saying } from '@prisma/client';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { SayingInSayingBox } from '../types/types';
 
-const SayingBox = (props: { saying: Saying }) => {
+const SayingBox = (props: { saying: SayingInSayingBox }) => {
   const router = useRouter();
 
   if (!props.saying) return <></>;
-  const { id, creatorID, text, createdAt } = props.saying;
+  const { id, creatorID, text, createdAt, creator } = props.saying;
 
   const onSayingClicked = () => {
     window.event?.preventDefault();
@@ -25,7 +25,7 @@ const SayingBox = (props: { saying: Saying }) => {
     >
       <Link href={`/user/${creatorID}`}>
         <div className='flex items-center justify-center w-16 h-16 mr-8 rounded-full bg-slate-500'>
-          {creatorID}
+          {creator?.username ? creator.username[0] : '?'}
         </div>
       </Link>
       <div className='flex items-center w-full h-full'>{text}</div>
