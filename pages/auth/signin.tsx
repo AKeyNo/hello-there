@@ -19,16 +19,18 @@ export default function SignIn({ csrfToken }: any) {
       if (response!.ok) {
         Router.push('/');
       } else if (response!.error == 'CredentialsSignin') {
-        setError('Invalid username or password!');
+        // setError('Invalid username or password!');
+        window.alert('Invalid username or password!');
       } else {
-        setError('Unknown error has occurred!');
+        // setError('An unknown error has occurred!');
+        window.alert('An unknown error as occurred!');
       }
     });
   };
 
   return (
     <div className='flex items-center justify-center w-screen h-screen bg-gray-900'>
-      {error ? (
+      {/* {error ? (
         <div
           id='sign-in-error'
           className='absolute top-0 w-screen py-6 text-center bg-red-600 rounded-lg shadow-xl animate-fade-in'
@@ -37,7 +39,7 @@ export default function SignIn({ csrfToken }: any) {
         </div>
       ) : (
         <></>
-      )}
+      )} */}
 
       <div className='px-32 py-16 bg-gray-800 rounded-lg shadow-xl'>
         <h1 className='text-xl font-extrabold'>Login</h1>

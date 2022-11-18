@@ -5,6 +5,7 @@ import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import { SignUpErrors, SignUpFields } from '../../types/types';
 
+// TODO: something broke with sign up i think?
 export default function SignUp() {
   const [userFields, setUserFields] = useState<SignUpFields>(
     {} as SignUpFields
@@ -16,7 +17,13 @@ export default function SignUp() {
     window.event?.preventDefault();
     const { username, email, password, confirmPassword } = userFields;
     // do simple checks that can be done in the browser before sending POST requests
+    if (password.length < 12) {
+      window.alert('The password length must be greater than 12!');
+      return;
+    }
+
     if (password.length < 12 || password != confirmPassword) {
+      window.alert('');
       return;
     }
 
