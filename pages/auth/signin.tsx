@@ -42,7 +42,9 @@ export default function SignIn({ csrfToken }: any) {
       )} */}
 
       <div className='px-32 py-16 bg-gray-800 rounded-lg shadow-xl'>
-        <h1 className='text-xl font-extrabold'>Login</h1>
+        <h1 className='text-xl font-extrabold' data-cy='signin-title'>
+          Sign In
+        </h1>
         <form method='post' onSubmit={signInSubmit}>
           <input name='csrfToken' type='hidden' defaultValue={csrfToken} />
           <label className='block py-4'>
@@ -66,6 +68,7 @@ export default function SignIn({ csrfToken }: any) {
           <button
             type='submit'
             className='block w-full px-32 py-4 font-bold duration-150 bg-gray-700 rounded-md shadow-lg text-slate-400 hover:text-white hover:bg-slate-500 hover:shadow-md'
+            data-cy='user-sign-in'
           >
             Sign in
           </button>

@@ -61,7 +61,9 @@ export default function SignUp() {
   return (
     <div className='flex items-center justify-center w-screen h-screen bg-gray-900'>
       <div className='px-32 py-16 bg-gray-800 rounded-lg shadow-xl'>
-        <h1 className='text-xl font-extrabold'>Sign Up</h1>
+        <h1 className='text-xl font-extrabold' data-cy='signup-title'>
+          Sign Up
+        </h1>
         <form method='post' onSubmit={signUpSubmit}>
           <label className='block py-4'>
             Username
@@ -142,6 +144,7 @@ export default function SignUp() {
           <button
             type='submit'
             className='block w-full px-32 py-4 font-bold duration-150 bg-gray-700 rounded-md shadow-lg text-slate-400 hover:text-white hover:bg-slate-500 hover:shadow-md'
+            data-cy='user-create-an-account'
           >
             Create an account
           </button>

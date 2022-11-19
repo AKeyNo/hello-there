@@ -33,3 +33,8 @@ export interface SignUpErrors {
   passwordError: string | null;
   confirmPasswordError: string | null;
 }
+
+export interface SignInFields {
+  username: string;
+  password: string;
+}

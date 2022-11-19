@@ -13,7 +13,7 @@ export default async function handler(
       await handleDELETE(res, req);
       break;
     default:
-      res.setHeader('Allow', ['POST']);
+      res.setHeader('Allow', ['POST, DELETE']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
@@ -43,20 +43,21 @@ async function handleGET(res: NextApiResponse, req: NextApiRequest) {
 }
 
 // DELETE /api/user/[id]
+// TODO: Fix to ID, only temporarily username for testing
 async function handleDELETE(res: NextApiResponse, req: NextApiRequest) {
   // TODO: Add a way to make any user not be able to delete users.
   const { id } = req.query;
-
   try {
-    const user = await prisma.user.delete({
-      where: { id: id as string },
-    });
+    // there is no delete if not there
+    const user = await prisma.user
+      .delete({
+        where: { username: id as string },
+      })
+      .catch();
 
-    if (user === null) {
-      return res.status(404).json({ message: 'User not found!' });
-    }
     return res.status(200).json({ message: `${id} has been deleted.` });
-  } catch {
+  } catch (error) {
+    console.error(error);
     return res.status(500).json({
       message: 'An error occurred while trying to delete this user!',
     });

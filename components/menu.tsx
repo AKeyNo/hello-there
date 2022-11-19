@@ -13,7 +13,9 @@ const Menu = (): JSX.Element => {
           }}
         >
           <SignOut size={24} weight='fill' className='inline mr-2' />
-          <h2 className='inline text-lg'>Sign Out</h2>
+          <h2 className='inline text-lg' data-cy='sign-out'>
+            Sign Out
+          </h2>
         </MenuButton>
       </div>
     </div>
