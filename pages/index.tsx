@@ -1,7 +1,6 @@
-import axios from 'axios';
 import type { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
-import useSWR from 'swr';
+import { useEffect, useState } from 'react';
 import Loading from '../components/loading';
 import Menu from '../components/menu';
 import SayingsList from '../components/sayings-list';
@@ -10,7 +9,40 @@ import useSayings from '../hooks/useSayings';
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession();
-  const { sayings, isLoading, isError } = useSayings(session);
+
+  // when the page is loaded for the first time,
+  // we store the time in order to perform pagination
+  // based on all the sayings that appear before the page loads
+  // this is to prevent issues such as showing duplicate sayings
+  const [timeFromLastCheckedSaying, setTimeFromLastCheckedSaying] = useState(
+    new Date().toISOString()
+  );
+  const { sayings, isLoading, isError, size, setSize } = useSayings(
+    session,
+    timeFromLastCheckedSaying
+  );
+
+  // scrolling to the bottom of the page loads in more sayings
+  useEffect(() => {
+    const handleScroll = () => {
+      window.event?.preventDefault();
+      const bottom =
+        Math.ceil(window.innerHeight + window.scrollY) >=
+        document.documentElement.scrollHeight;
+
+      if (bottom) {
+        console.log('size', size);
+        setSize(size + 1);
+        console.log('at the bottom', size);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
 
   const data = 0;
   if (status === 'loading' && !data) return <Loading />;

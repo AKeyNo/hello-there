@@ -18,7 +18,7 @@ export default async function handler(
 
 // GET /api/saying/feed/[id]
 async function handleGET(res: NextApiResponse, req: NextApiRequest) {
-  const { id } = req.query;
+  const { id, sort, beforeTime } = req.query;
 
   try {
     const listOfAllFollowers = await prisma.follows.findMany({
@@ -26,18 +26,22 @@ async function handleGET(res: NextApiResponse, req: NextApiRequest) {
     });
 
     // if they are not following anyone, just return the latest sayings from the whole site
-    // TODO: Add lazy scrolling support
+    // depending on how far down they scrolled, show 10 sayings since the time requested
     if (listOfAllFollowers.length == 0) {
       const latestSayings = await prisma.saying.findMany({
-        skip: 0,
-        take: 10,
+        skip: 10 * parseInt(sort as string),
+        take: 10 * (parseInt(sort as string) + 1),
         orderBy: { createdAt: 'desc' },
         include: {
           creator: { select: { username: true } },
         },
+        where: {
+          createdAt: {
+            lt: beforeTime as string,
+          },
+        },
       });
 
-      // console.log(latestSayings);
       return res.status(200).json(latestSayings);
     }
 

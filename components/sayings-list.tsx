@@ -3,7 +3,7 @@ import CreateSaying from './create-saying';
 import SayingBox from './saying';
 
 interface Props {
-  sayings: Saying[];
+  sayings: Saying[] | null;
 }
 
 const SayingsList = ({ sayings }: Props): JSX.Element => {
