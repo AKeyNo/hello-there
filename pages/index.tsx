@@ -31,9 +31,7 @@ const Home: NextPage = () => {
         document.documentElement.scrollHeight;
 
       if (bottom) {
-        console.log('size', size);
         setSize(size + 1);
-        console.log('at the bottom', size);
       }
     };
 
