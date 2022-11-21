@@ -40,15 +40,12 @@ async function handlePOST(
         repliedToSayingID,
         text,
       },
+      include: {
+        creator: { select: { username: true } },
+      },
     });
 
-    return res.status(200).json({
-      id: saying.id,
-      creatorID: token.id,
-      repliedToSayingID,
-      text,
-      time: Date(),
-    });
+    return res.status(200).json(saying);
   } catch (e) {
     console.log(e);
     return res.status(401).json({ message: 'Failed to create saying.' });

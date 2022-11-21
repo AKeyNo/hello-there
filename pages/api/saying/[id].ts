@@ -29,6 +29,9 @@ async function handleGET(res: NextApiResponse, req: NextApiRequest) {
   try {
     const saying = await prisma.saying.findUnique({
       where: { id: id as string },
+      include: {
+        creator: { select: { username: true } },
+      },
     });
 
     return res.status(200).json({ saying });

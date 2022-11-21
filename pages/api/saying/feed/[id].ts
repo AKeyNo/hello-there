@@ -37,11 +37,10 @@ async function handleGET(res: NextApiResponse, req: NextApiRequest) {
         },
         where: {
           createdAt: {
-            lt: beforeTime as string,
+            lt: (beforeTime as string) ?? new Date().toISOString(),
           },
         },
       });
-
       return res.status(200).json(latestSayings);
     }
 

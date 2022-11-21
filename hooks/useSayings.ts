@@ -13,11 +13,15 @@ interface Session {
 // every time size gets added, it adds more and more to the list of sayings to display
 const useSayings = (
   session: Session | null,
-  timeFromLastCheckedSaying: string
+  timeFromLastCheckedSaying: string | null
 ) => {
   const getKey = (pageIndex: number, previousPageData: any) => {
     return session
-      ? `/api/saying/feed/${session.user.id}/?sort=${pageIndex}&beforeTime=${timeFromLastCheckedSaying}`
+      ? `/api/saying/feed/${session.user.id}/?sort=${pageIndex}${
+          timeFromLastCheckedSaying
+            ? `&beforeTime=${timeFromLastCheckedSaying}`
+            : ''
+        }`
       : null;
   };
 
