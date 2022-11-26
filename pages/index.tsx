@@ -21,11 +21,11 @@ const Home: NextPage = () => {
         {isSayingsLoaded ? (
           <SayingsList sayings={sayings} />
         ) : (
-          <span className='w-2/6'>
+          <span className='w-3/12'>
             <Loading />
           </span>
         )}
-        <div className='w-2/6 w-'></div>
+        <div className='w-3/12'></div>
       </div>
     );
   } else {
