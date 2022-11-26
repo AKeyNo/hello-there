@@ -12,7 +12,7 @@ interface Session {
 
 // handles the sayings that appear
 // every time size gets added, it adds more and more to the list of sayings to display
-const useSayings = (session: Session | null) => {
+const useSayings = (session: Session | null, sayingToCheckReplies?: string) => {
   // scrolling to the bottom of the page loads in more sayings
   useEffect(() => {
     const handleScroll = () => {
@@ -34,13 +34,21 @@ const useSayings = (session: Session | null) => {
   });
 
   const getKey = (pageIndex: number, previousPageData: any) => {
-    return session
-      ? `/api/saying/feed/${session.user.id}/?sort=${pageIndex}${
-          timeFromLastCheckedSaying
-            ? `&beforeTime=${timeFromLastCheckedSaying}`
-            : ''
-        }`
-      : null;
+    if (sayingToCheckReplies) {
+      return `/api/saying/replies/${sayingToCheckReplies}?sort=${pageIndex}${
+        timeFromLastCheckedSaying
+          ? `&beforeTime=${timeFromLastCheckedSaying}`
+          : ''
+      }`;
+    } else {
+      return session
+        ? `/api/saying/feed/${session.user.id}/?sort=${pageIndex}${
+            timeFromLastCheckedSaying
+              ? `&beforeTime=${timeFromLastCheckedSaying}`
+              : ''
+          }`
+        : null;
+    }
   };
   // we store the time in order to perform pagination
   // based on all the sayings that appear before the page loads

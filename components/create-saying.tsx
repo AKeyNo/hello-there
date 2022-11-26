@@ -1,6 +1,7 @@
 import { Saying } from '@prisma/client';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import SayingBox from './saying';
 
@@ -15,6 +16,9 @@ const CreateSaying = (): JSX.Element => {
   const MAX_CHARACTER_COUNT: number = process.env.SAYING_CHARACTER_LENGTH
     ? parseInt(process.env.SAYING_CHARACTER_LENGTH)
     : 280;
+  const router = useRouter();
+  // if we are on the main saying page, there is no saying being replied, else there is one
+  const { id: sayingRepliedToID } = router.query;
 
   if (!session) return <></>;
 
@@ -23,6 +27,7 @@ const CreateSaying = (): JSX.Element => {
 
     const newSayingQuery = await axios.post('/api/saying', {
       text: createSayingText,
+      repliedToSayingID: sayingRepliedToID,
     });
 
     const newSaying = newSayingQuery.data as Saying;
