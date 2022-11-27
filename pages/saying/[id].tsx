@@ -19,6 +19,9 @@ export default function SayingPage() {
   return (
     <Wrapper>
       {data ? <SayingBox saying={data.saying} /> : <Loading />}
+      {data?.saying?.repliedToSaying ? (
+        <SayingBox saying={data.saying.repliedToSaying} wasRepliedTo={true} />
+      ) : null}
       <CreateSaying />
       {isSayingsLoaded ? (
         <SayingsList sayings={sayings} />

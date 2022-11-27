@@ -2,7 +2,7 @@ import { Saying } from '@prisma/client';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SayingBox from './saying';
 
 const CreateSaying = (): JSX.Element => {
@@ -17,6 +17,13 @@ const CreateSaying = (): JSX.Element => {
     ? parseInt(process.env.SAYING_CHARACTER_LENGTH)
     : 280;
   const router = useRouter();
+  const dynamicRoute = useRouter().asPath;
+
+  useEffect(() => {
+    setCreateSayingText('');
+    setNewlyCreatedUserSayings([]);
+  }, [dynamicRoute]);
+
   // if we are on the main saying page, there is no saying being replied, else there is one
   const { id: sayingRepliedToID } = router.query;
 
@@ -31,11 +38,10 @@ const CreateSaying = (): JSX.Element => {
     });
 
     const newSaying = newSayingQuery.data as Saying;
-
     setNewlyCreatedUserSayings([newSaying, ...newlyCreatedUserSayings]);
+    setCreateSayingText('');
   };
 
-  // const { id, username, email, name } = session.user;
   return (
     <>
       <div className='flex flex-col items-center justify-center w-full p-8 border-b-4 border-gray-700'>
@@ -45,6 +51,7 @@ const CreateSaying = (): JSX.Element => {
               name='create-saying'
               className='block w-full h-32 p-5 bg-gray-700 rounded-lg shadow-sm resize-none'
               onChange={(e) => setCreateSayingText(e.target.value)}
+              value={createSayingText}
               placeholder='What is on your mind?'
               autoComplete='off'
               maxLength={MAX_CHARACTER_COUNT}

@@ -31,6 +31,10 @@ async function handleGET(res: NextApiResponse, req: NextApiRequest) {
       where: { id: id as string },
       include: {
         creator: { select: { username: true } },
+        // include repliedToSaying
+        repliedToSaying: {
+          include: { creator: { select: { username: true } } },
+        },
       },
     });
 
