@@ -12,7 +12,11 @@ interface Session {
 
 // handles the sayings that appear
 // every time size gets added, it adds more and more to the list of sayings to display
-const useSayings = (session: Session | null, sayingToCheckReplies?: string) => {
+const useSayings = (
+  session?: Session | null,
+  typeOfQuery?: string,
+  id?: string
+) => {
   // scrolling to the bottom of the page loads in more sayings
   useEffect(() => {
     const handleScroll = () => {
@@ -33,9 +37,16 @@ const useSayings = (session: Session | null, sayingToCheckReplies?: string) => {
     };
   });
 
+  //
   const getKey = (pageIndex: number, previousPageData: any) => {
-    if (sayingToCheckReplies) {
-      return `/api/saying/replies/${sayingToCheckReplies}?sort=${pageIndex}${
+    if (typeOfQuery == 'replies') {
+      return `/api/saying/replies/${id}?sort=${pageIndex}${
+        timeFromLastCheckedSaying
+          ? `&beforeTime=${timeFromLastCheckedSaying}`
+          : ''
+      }`;
+    } else if (typeOfQuery == 'user') {
+      return `/api/user/sayings/${id}?sort=${pageIndex}${
         timeFromLastCheckedSaying
           ? `&beforeTime=${timeFromLastCheckedSaying}`
           : ''
