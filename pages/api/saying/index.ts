@@ -33,6 +33,14 @@ async function handlePOST(
 ) {
   const { repliedToSayingID, text } = req.body;
 
+  if (
+    !text ||
+    text.length > (process.env.SAYING_CHARACTER_LENGTH ?? 280) ||
+    text.length < 1
+  ) {
+    return res.status(422).json({ message: 'Error: Invalid text length!' });
+  }
+
   try {
     const saying = await prisma.saying.create({
       data: {

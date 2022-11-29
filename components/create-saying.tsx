@@ -32,6 +32,11 @@ const CreateSaying = (): JSX.Element => {
   const submitSaying = async () => {
     window.event?.preventDefault();
 
+    if (createSayingText.length == 0) {
+      window.alert('Saying must be at least 1 character long!');
+      return;
+    }
+
     const newSayingQuery = await axios.post('/api/saying', {
       text: createSayingText,
       repliedToSayingID: sayingRepliedToID,
