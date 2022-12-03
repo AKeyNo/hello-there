@@ -17,11 +17,12 @@ npm install
 ```
 
 Fill out the .env_example file and rename the file name to ".env".
-After this, type in the following commands.
+After this, type in the following commands which will generate the database, seed, and run it.
 
 ```
 npx prisma generate
 npx migrate dev
+npx prisma db seed
 npm run dev
 ```
 
@@ -44,11 +45,14 @@ docker build -t hello-there .
 docker-compose up --build --force-recreate
 ```
 
-In Docker, open the shell for the main application (called hello-there), and type the following command.
+In Docker, open the shell for the main application (called hello-there), and type the following commands to generate and seed the database.
 
 ```
 npx prisma migrate dev
+npx prisma db seed
 ```
+
+After running these commands, it will be on http://localhost:3000/.
 
 ## License
 
