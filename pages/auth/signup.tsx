@@ -5,7 +5,7 @@ import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import { SignUpErrors, SignUpFields } from '../../types/types';
 
-// TODO: something broke with sign up i think?
+// TODO: reimplement showing errors
 export default function SignUp() {
   const [userFields, setUserFields] = useState<SignUpFields>(
     {} as SignUpFields
