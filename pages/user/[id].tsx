@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import useSWR from 'swr';
 import Loading from '../../components/loading';
+import ProfileInformation from '../../components/profile-information';
 import SayingsList from '../../components/sayings-list';
 import Wrapper from '../../components/wrapper';
 import useSayings from '../../hooks/useSayings';
@@ -19,6 +19,7 @@ export default function User() {
 
   return (
     <Wrapper>
+      <ProfileInformation userID={id as string} />
       {isSayingsLoaded ? (
         <SayingsList sayings={sayings} />
       ) : (
