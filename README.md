@@ -12,7 +12,7 @@ In your favorite shell, type the following in order.
 
 ```
 git clone https://github.com/AKeyNo/hello-there.git
-cd label-this
+cd hello-there
 npm install
 ```
 
