@@ -21,7 +21,7 @@ After this, type in the following commands which will generate the database, see
 
 ```
 npx prisma generate
-npx migrate dev
+npx prisma migrate dev
 npx prisma db seed
 npm run dev
 ```
