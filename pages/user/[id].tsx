@@ -1,9 +1,9 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import Loading from '../../components/loading';
-import ProfileInformation from '../../components/profile-information';
-import SayingsList from '../../components/sayings-list';
-import useSayings from '../../hooks/useSayings';
+import Loading from '../../src/components/ui/Loading';
+import ProfileInformation from '../../src/components/profile/ProfileInformation';
+import SayingsList from '../../src/components/saying/SayingsList';
+import useSayings from '../../lib/hooks/useSayings';
 
 export default function User() {
   const { data: session } = useSession();

@@ -1,7 +1,7 @@
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
-const Login = (): JSX.Element => {
+const LoginButton = (): JSX.Element => {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -30,4 +30,4 @@ const Login = (): JSX.Element => {
   );
 };
 
-export default Login;
+export default LoginButton;

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import SayingBox from './saying';
+import SayingBox from './SayingBox';
 
 const CreateSaying = (): JSX.Element => {
   const { data: session, status } = useSession();

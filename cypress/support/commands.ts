@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import { SignInFields, SignUpFields } from '../../types/types';
+import { SignInFields, SignUpFields } from '../../lib/types/types';
 
 declare global {
   namespace Cypress {

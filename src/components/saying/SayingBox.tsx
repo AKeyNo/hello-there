@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ArrowBendDownRight } from 'phosphor-react';
-import { SayingInSayingBox } from '../types/types';
+import { SayingInSayingBox } from '../../lib/types/types';
 
 interface Props {
   saying: SayingInSayingBox;

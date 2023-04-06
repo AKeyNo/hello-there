@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
-import Menu from './menu';
+
 import { useSession } from 'next-auth/react';
+import Menu from './Menu';
 
 const Layout: React.FC<PropsWithChildren<any>> = ({ data, children }) => {
   const { status: sessionStatus } = useSession();

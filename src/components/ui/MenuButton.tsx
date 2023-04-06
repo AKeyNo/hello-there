@@ -1,6 +1,6 @@
 import { CircleNotch } from 'phosphor-react';
 import { PropsWithChildren } from 'react';
-import { MenuButtonProps } from '../types/types';
+import { MenuButtonProps } from '../../lib/types/types';
 
 const MenuButton: React.FC<PropsWithChildren<MenuButtonProps>> = ({
   data,

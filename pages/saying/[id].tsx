@@ -1,11 +1,11 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
-import CreateSaying from '../../components/create-saying';
-import Loading from '../../components/loading';
-import SayingBox from '../../components/saying';
-import SayingsList from '../../components/sayings-list';
-import useSayings from '../../hooks/useSayings';
+import CreateSaying from '../../src/components/saying/CreateSaying';
+import Loading from '../../src/components/ui/Loading';
+import SayingBox from '../../src/components/saying/SayingBox';
+import SayingsList from '../../src/components/saying/SayingsList';
+import useSayings from '../../lib/hooks/useSayings';
 
 export default function SayingPage() {
   const { data: session, status: sessionStatus } = useSession();

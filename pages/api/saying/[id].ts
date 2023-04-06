@@ -1,7 +1,7 @@
-import prisma from '../../../lib/prismadb';
+import prisma from '../../../lib/prisma/prismadb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getToken } from 'next-auth/jwt';
-import { isOriginalCreator } from '../../../lib/authentication';
+import { isOriginalCreator } from '../../../lib/auth/authentication';
 
 const secret = process.env.NEXTAUTH_SECRET;
 

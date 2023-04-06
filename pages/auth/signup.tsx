@@ -3,7 +3,7 @@ import { getCsrfToken } from 'next-auth/react';
 import Link from 'next/link';
 import Router from 'next/router';
 import { useEffect, useState } from 'react';
-import { SignUpErrors, SignUpFields } from '../../types/types';
+import { SignUpErrors, SignUpFields } from '../../lib/types/types';
 
 // TODO: reimplement showing errors
 export default function SignUp() {

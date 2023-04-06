@@ -1,5 +1,5 @@
 import { Saying } from '@prisma/client';
-import SayingBox from './saying';
+import SayingBox from './SayingBox';
 
 interface Props {
   sayings: Saying[] | null;
