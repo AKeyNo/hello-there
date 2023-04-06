@@ -3,11 +3,10 @@ import { useRouter } from 'next/router';
 import Loading from '../../components/loading';
 import ProfileInformation from '../../components/profile-information';
 import SayingsList from '../../components/sayings-list';
-import Wrapper from '../../components/wrapper';
 import useSayings from '../../hooks/useSayings';
 
 export default function User() {
-  const { data: session, status: sessionStatus } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const { id } = router.query;
 
@@ -18,7 +17,7 @@ export default function User() {
   );
 
   return (
-    <Wrapper>
+    <div className='w-full'>
       <ProfileInformation userID={id as string} />
       {isSayingsLoaded ? (
         <SayingsList sayings={sayings} />
@@ -27,6 +26,6 @@ export default function User() {
           <Loading />
         </span>
       )}
-    </Wrapper>
+    </div>
   );
 }

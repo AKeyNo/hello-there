@@ -1,8 +1,15 @@
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 import Menu from './menu';
+import { useSession } from 'next-auth/react';
 
-const Wrapper: React.FC<PropsWithChildren<any>> = ({ data, children }) => {
+const Layout: React.FC<PropsWithChildren<any>> = ({ data, children }) => {
+  const { status: sessionStatus } = useSession();
+
+  // if sessionStatus is unauthenticated and the page is the home page, return the children
+  if (sessionStatus === 'unauthenticated' && window.location.pathname == '/')
+    return <div>{children}</div>;
+
   return (
     <div className='flex max-h-screen'>
       <Menu />
@@ -12,9 +19,9 @@ const Wrapper: React.FC<PropsWithChildren<any>> = ({ data, children }) => {
         </Link>
         {children}
       </div>
-      <div className='w-3/12'></div>
+      <div className='w-3/12' />
     </div>
   );
 };
 
-export default Wrapper;
+export default Layout;

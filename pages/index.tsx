@@ -4,7 +4,6 @@ import CreateSaying from '../components/create-saying';
 import Loading from '../components/loading';
 import SayingsList from '../components/sayings-list';
 import Welcome from '../components/welcome';
-import Wrapper from '../components/wrapper';
 import useSayings from '../hooks/useSayings';
 
 const Home: NextPage = () => {
@@ -15,7 +14,7 @@ const Home: NextPage = () => {
   if (sessionStatus === 'loading') return <Loading />;
   else if (session) {
     return (
-      <Wrapper>
+      <div className='w-full'>
         <CreateSaying />
         {isSayingsLoaded ? (
           <SayingsList sayings={sayings} />
@@ -24,7 +23,7 @@ const Home: NextPage = () => {
             <Loading />
           </span>
         )}
-      </Wrapper>
+      </div>
     );
   } else {
     return <Welcome />;

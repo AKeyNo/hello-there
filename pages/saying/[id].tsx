@@ -5,7 +5,6 @@ import CreateSaying from '../../components/create-saying';
 import Loading from '../../components/loading';
 import SayingBox from '../../components/saying';
 import SayingsList from '../../components/sayings-list';
-import Wrapper from '../../components/wrapper';
 import useSayings from '../../hooks/useSayings';
 
 export default function SayingPage() {
@@ -21,7 +20,7 @@ export default function SayingPage() {
   );
 
   return (
-    <Wrapper>
+    <div className='w-full'>
       {data ? <SayingBox saying={data.saying} /> : <Loading />}
       {data?.saying?.repliedToSaying ? (
         <SayingBox saying={data.saying.repliedToSaying} wasRepliedTo={true} />
@@ -34,6 +33,6 @@ export default function SayingPage() {
           <Loading />
         </span>
       )}
-    </Wrapper>
+    </div>
   );
 }

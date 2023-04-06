@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { SWRConfig } from 'swr';
 import axios from 'axios';
+import Layout from '../components/Layout';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
@@ -13,7 +14,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           fetcher: (url: string) => axios.get(url).then((res) => res.data),
         }}
       >
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </SWRConfig>
     </SessionProvider>
   );
