@@ -12,7 +12,7 @@ export default async function handler(
       await handlePOST(res, req);
       break;
     case 'DELETE':
-      await handleDELETE(res, req);
+      await handleDELETE(res);
       break;
     default:
       res.setHeader('Allow', ['POST', 'DELETE']);
@@ -62,13 +62,12 @@ async function handlePOST(res: NextApiResponse, req: NextApiRequest) {
   const user = await prisma.user.create({
     data: { email, username, hashedPassword, firstName, lastName, joinDate },
   });
-  return res
-    .status(200)
-    .json({ email, username, hashedPassword, firstName, lastName, joinDate });
+
+  return res.status(200).json(user);
 }
 
 // DELETE /api/user
-async function handleDELETE(res: NextApiResponse, req: NextApiRequest) {
+async function handleDELETE(res: NextApiResponse) {
   // TODO: Add a way to make any user not be able to delete users.
   try {
     await prisma.$queryRaw`TRUNCATE TABLE public."User" CASCADE`;

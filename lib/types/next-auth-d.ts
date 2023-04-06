@@ -1,4 +1,6 @@
+//@ts-ignore
 import { Session } from 'next-auth';
+//@ts-ignore
 import { JWT } from 'next-auth/jwt';
 
 declare module 'next-auth' {

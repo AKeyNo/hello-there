@@ -1,8 +1,8 @@
 import NextAuth from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
+// import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from '../../../lib/prisma/prismadb';
-import EmailProvider from 'next-auth/providers/email';
+// import EmailProvider from 'next-auth/providers/email';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import sha256 from 'crypto-js/sha256';
 
@@ -48,7 +48,7 @@ export default NextAuth({
         },
         password: { label: 'Password', type: 'password' },
       },
-      authorize: async (credentials: any, req) => {
+      authorize: async (credentials: any) => {
         // console.log(credentials);
 
         const user = await prisma.user.findUnique({
@@ -132,7 +132,7 @@ export default NextAuth({
     //   session.accessToken = token.accessToken;
     //   return session;
     // },
-    async jwt({ token, user, account, profile, isNewUser }) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id;
       }
@@ -144,7 +144,7 @@ export default NextAuth({
     },
     // async signIn({ user, account, profile, email, credentials }) { return true },
     // async redirect({ url, baseUrl }) { return baseUrl },
-    async session({ session, token, user }) {
+    async session({ session }) {
       const currentUser = await prisma.user.findUnique({
         where: { email: session.user?.email as string },
       });

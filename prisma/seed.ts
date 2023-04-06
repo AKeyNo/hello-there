@@ -4,7 +4,7 @@ import sha256 from 'crypto-js/sha256';
 
 async function main() {
   // create a test user that anyone can use to login
-  const user = await prisma.user.upsert({
+  await prisma.user.upsert({
     where: { username: 'username' },
     update: {},
     create: {

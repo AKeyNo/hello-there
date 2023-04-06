@@ -17,7 +17,7 @@ export default async function handler(
 
 // GET /api/user/sayings/[id]
 async function handleGET(res: NextApiResponse, req: NextApiRequest) {
-  const { id, sort, beforeTime } = req.query;
+  const { id, sort } = req.query;
 
   try {
     const sayings = await prisma.saying.findMany({

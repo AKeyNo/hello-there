@@ -1,5 +1,5 @@
 import { signOut } from 'next-auth/react';
-import { CircleNotch, SignOut } from 'phosphor-react';
+import { SignOut } from 'phosphor-react';
 import MenuButton from './MenuButton';
 
 const Menu = (): JSX.Element => {

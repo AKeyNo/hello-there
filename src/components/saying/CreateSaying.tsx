@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import SayingBox from './SayingBox';
 
 const CreateSaying = (): JSX.Element => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [createSayingText, setCreateSayingText] = useState('');
   // because of the way SWR works and with the saying timing based off either page loading or get time for new sayings,
   // we need a separate area for newly created user sayings that will appear at the top when the user creates a new one

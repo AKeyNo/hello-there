@@ -37,8 +37,7 @@ const useSayings = (
     };
   });
 
-  //
-  const getKey = (pageIndex: number, previousPageData: any) => {
+  const getKey = (pageIndex: number) => {
     if (typeOfQuery == 'replies') {
       return `/api/saying/replies/${id}?sort=${pageIndex}${
         timeFromLastCheckedSaying

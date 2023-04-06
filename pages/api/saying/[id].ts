@@ -55,7 +55,7 @@ async function handleDELETE(res: NextApiResponse, req: NextApiRequest) {
     const checkUserQuery = await prisma.saying.findUnique({
       where: { id: id as string },
     });
-    if (!isOriginalCreator(res, token!, checkUserQuery!.creatorID as string))
+    if (!isOriginalCreator(token!, checkUserQuery!.creatorID as string))
       return res
         .status(401)
         .json({ message: 'You are not the original creator!' });

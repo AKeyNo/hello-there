@@ -8,11 +8,11 @@ import SayingsList from '../../src/components/saying/SayingsList';
 import useSayings from '../../lib/hooks/useSayings';
 
 export default function SayingPage() {
-  const { data: session, status: sessionStatus } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const { id } = router.query;
 
-  const { data, error } = useSWR(`/api/saying/${id}`);
+  const { data } = useSWR(`/api/saying/${id}`);
   const { sayings, isSayingsLoaded } = useSayings(
     session,
     'replies',

@@ -49,7 +49,7 @@ async function handleDELETE(res: NextApiResponse, req: NextApiRequest) {
   const { id } = req.query;
   try {
     // there is no delete if not there
-    const user = await prisma.user
+    await prisma.user
       .delete({
         where: { username: id as string },
       })
