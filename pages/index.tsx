@@ -12,22 +12,21 @@ const Home: NextPage = () => {
   const { sayings, isSayingsLoaded } = useSayings(session);
 
   if (sessionStatus === 'loading') return <Loading />;
-  else if (session) {
-    return (
-      <div className='w-full'>
-        <CreateSaying />
-        {isSayingsLoaded ? (
-          <SayingsList sayings={sayings} />
-        ) : (
-          <span className='w-3/12'>
-            <Loading />
-          </span>
-        )}
-      </div>
-    );
-  } else {
-    return <Welcome />;
-  }
+
+  if (sessionStatus === 'unauthenticated') return <Welcome />;
+
+  return (
+    <div className='w-full'>
+      <CreateSaying />
+      {isSayingsLoaded ? (
+        <SayingsList sayings={sayings} />
+      ) : (
+        <span className='w-3/12'>
+          <Loading />
+        </span>
+      )}
+    </div>
+  );
 };
 
 export default Home;

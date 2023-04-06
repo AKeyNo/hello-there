@@ -4,12 +4,11 @@ import { PropsWithChildren } from 'react';
 import { useSession } from 'next-auth/react';
 import Menu from './Menu';
 
-const Layout: React.FC<PropsWithChildren<any>> = ({ data, children }) => {
-  const { status: sessionStatus } = useSession();
+const Layout: React.FC<PropsWithChildren<any>> = ({ children }) => {
+  const { data: session } = useSession();
 
   // if sessionStatus is unauthenticated and the page is the home page, return the children
-  if (sessionStatus === 'unauthenticated' && window.location.pathname == '/')
-    return <div>{children}</div>;
+  if (!session) return <div>{children}</div>;
 
   return (
     <div className='flex max-h-screen'>

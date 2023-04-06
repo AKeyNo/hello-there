@@ -4,6 +4,9 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { useEffect, useState } from 'react';
 import { SignUpErrors, SignUpFields } from '../../lib/types/types';
+import { getServerSession } from 'next-auth';
+import { GetServerSidePropsContext } from 'next';
+import authOptions from '../api/auth/[...nextauth]';
 
 // TODO: reimplement showing errors
 export default function SignUp() {
@@ -160,7 +163,18 @@ export default function SignUp() {
   );
 }
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       csrfToken: await getCsrfToken(context),

@@ -1,12 +1,15 @@
+import { GetServerSidePropsContext } from 'next';
+import { getServerSession } from 'next-auth';
 import { getCsrfToken, signIn } from 'next-auth/react';
 import Link from 'next/link';
 import Router from 'next/router';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
+import authOptions from '../api/auth/[...nextauth]';
 
 export default function SignIn({ csrfToken }: any) {
   const username = useRef<HTMLInputElement | null>(null);
   const password = useRef<HTMLInputElement | null>(null);
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
 
   const signInSubmit = async () => {
     window.event?.preventDefault();
@@ -84,7 +87,18 @@ export default function SignIn({ csrfToken }: any) {
   );
 }
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       csrfToken: await getCsrfToken(context),
