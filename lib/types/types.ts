@@ -38,3 +38,12 @@ export interface SignInFields {
   username: string;
   password: string;
 }
+
+export interface Session {
+  user: {
+    id: string;
+    email: string;
+    username: string;
+    name?: string;
+  };
+}

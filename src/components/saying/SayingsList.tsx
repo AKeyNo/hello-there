@@ -1,11 +1,11 @@
 import { Saying } from '@prisma/client';
 import SayingBox from './SayingBox';
 
-interface Props {
+const SayingsList = ({
+  sayings,
+}: {
   sayings: Saying[] | null;
-}
-
-const SayingsList = ({ sayings }: Props): JSX.Element => {
+}): JSX.Element => {
   return (
     <div id='sayings-list' className='flex flex-col items-start w-full'>
       {sayings &&

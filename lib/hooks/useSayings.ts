@@ -1,14 +1,6 @@
 import { useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
-
-interface Session {
-  user: {
-    id: string;
-    email: string;
-    username: string;
-    name?: string;
-  };
-}
+import { Session } from '../types/types';
 
 // handles the sayings that appear
 // every time size gets added, it adds more and more to the list of sayings to display

@@ -3,11 +3,7 @@ import axios from 'axios';
 import { CircleNotch, MapPin } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 
-interface Props {
-  userID: string;
-}
-
-const ProfileInformation = ({ userID }: Props): JSX.Element => {
+const ProfileInformation = ({ userID }: { userID: string }): JSX.Element => {
   const [userInformation, setUserInformation] = useState({} as User);
 
   useEffect(() => {
