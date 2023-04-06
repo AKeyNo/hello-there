@@ -25,17 +25,17 @@ const Welcome = (): JSX.Element => {
   };
 
   return (
-    <div className='flex flex-row max-h-screen'>
-      <div className='relative w-1/2'>
+    <div className='flex flex-row h-full min-h-screen p-4 overflow-y-auto sm:p-0'>
+      <div className='relative hidden sm:w-1/2 sm:block'>
         <Image
           src='/background-images/1.jpg'
           alt='nature'
           layout='fill'
           objectFit='cover'
           className='shadow-xl'
-        ></Image>
+        />
       </div>
-      <div className='flex flex-col justify-center w-1/2 h-screen px-12 bg-gray-900'>
+      <div className='flex flex-col items-center justify-center h-full min-h-screen px-12 text-center bg-gray-900 sm:items-start sm:w-1/2 sm:text-start'>
         <h1
           className='text-5xl font-extrabold drop-shadow-xl'
           data-cy='home-page-title'
@@ -54,6 +54,7 @@ const Welcome = (): JSX.Element => {
             Sign up
           </button>
         </Link>
+
         <button
           id='sign-in'
           className='block w-64 h-16 p-4 mb-4 font-bold text-left duration-300 bg-gray-800 rounded-lg text-slate-400 hover:text-white drop-shadow-xl'
