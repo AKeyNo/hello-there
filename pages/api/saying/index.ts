@@ -11,7 +11,7 @@ export default async function handler(
 ) {
   const token = await getToken({ req, secret });
 
-  if (!isAuthenticated(res, token!)) {
+  if (!isAuthenticated(token!)) {
     return res.status(401).json({ message: 'You are not logged in!' });
   }
 
