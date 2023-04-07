@@ -32,7 +32,7 @@ export default function SignIn({ csrfToken }: any) {
   };
 
   return (
-    <div className='flex items-center justify-center w-screen h-screen bg-gray-900'>
+    <div className='flex items-center justify-center w-screen h-full min-h-screen bg-gray-900'>
       {/* {error ? (
         <div
           id='sign-in-error'
@@ -44,30 +44,26 @@ export default function SignIn({ csrfToken }: any) {
         <></>
       )} */}
 
-      <div className='px-32 py-16 bg-gray-800 rounded-lg shadow-xl'>
+      <div className='w-full h-full min-h-screen p-4 overflow-y-auto bg-gray-800 rounded-lg shadow-xl sm:min-h-fit sm:h-fit sm:px-32 sm:py-16 sm:w-fit sm:p-0'>
         <h1 className='text-xl font-extrabold' data-cy='signin-title'>
           Sign In
         </h1>
         <form method='post' onSubmit={signInSubmit}>
           <input name='csrfToken' type='hidden' defaultValue={csrfToken} />
-          <label className='block py-4'>
-            Username
-            <input
-              name='username'
-              type='text'
-              className='block w-full h-8 bg-gray-700 rounded-lg shadow-sm'
-              ref={username}
-            />
-          </label>
-          <label className='block pb-4'>
-            Password
-            <input
-              name='password'
-              type='password'
-              className='block w-full h-8 bg-gray-700 rounded-md shadow-sm'
-              ref={password}
-            />
-          </label>
+          <label className='block py-4'>Username</label>
+          <input
+            name='username'
+            type='text'
+            className='block w-full h-8 bg-gray-700 rounded-lg shadow-sm'
+            ref={username}
+          />
+          <label className='block pb-4'>Password</label>
+          <input
+            name='password'
+            type='password'
+            className='block w-full h-8 mb-4 bg-gray-700 rounded-md shadow-sm'
+            ref={password}
+          />
           <button
             type='submit'
             className='block w-full px-32 py-4 font-bold duration-150 bg-gray-700 rounded-md shadow-lg text-slate-400 hover:text-white hover:bg-slate-500 hover:shadow-md'

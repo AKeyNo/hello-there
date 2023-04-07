@@ -62,8 +62,8 @@ export default function SignUp() {
   }, [userFields]);
 
   return (
-    <div className='flex items-center justify-center w-screen h-screen bg-gray-900'>
-      <div className='px-32 py-16 bg-gray-800 rounded-lg shadow-xl'>
+    <div className='flex items-center justify-center w-screen h-full min-h-screen bg-gray-900'>
+      <div className='w-full h-full min-h-screen p-4 overflow-y-auto bg-gray-800 rounded-lg shadow-xl sm:min-h-fit sm:h-fit sm:px-32 sm:py-16 sm:w-fit sm:p-0'>
         <h1 className='text-xl font-extrabold' data-cy='signup-title'>
           Sign Up
         </h1>
