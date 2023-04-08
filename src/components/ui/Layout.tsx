@@ -13,13 +13,13 @@ const Layout: React.FC<PropsWithChildren<any>> = ({ children }) => {
   return (
     <div className='flex max-h-screen'>
       <Menu />
-      <div className='flex flex-col items-center w-6/12 pt-12 border-b-2 h-max border-gray-100/20 border-x-4'>
+      <div className='flex flex-col items-center w-full max-w-4xl pt-12 mx-auto border-b-2 h-max border-gray-100/20 border-x-4'>
         <Link href='/'>
-          <h1 className='mb-8 text-2xl font-bold '>Hello There</h1>
+          <h1 className='mb-8 text-2xl font-bold'>Hello There</h1>
         </Link>
         {children}
       </div>
-      <div className='w-3/12' />
+      <div className='flex-1 hidden w-full sm:block' />
     </div>
   );
 };

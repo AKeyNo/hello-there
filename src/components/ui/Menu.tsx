@@ -4,9 +4,11 @@ import MenuButton from './MenuButton';
 
 const Menu = (): JSX.Element => {
   return (
-    <div id='menu' className='flex flex-row justify-center w-3/12 h-screen'>
-      <div className='w-1/2'></div>
-      <div id='menu-buttons' className='w-1/2 py-4'>
+    <div
+      id='menu'
+      className='flex-1 hidden w-full h-screen min-h-screen sm:block'
+    >
+      <div id='menu-buttons' className='flex flex-row-reverse py-4'>
         <MenuButton
           data={{
             clickHandler: () => signOut(),
