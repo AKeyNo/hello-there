@@ -19,7 +19,7 @@ const Welcome = (): JSX.Element => {
         window.alert('Invalid username or password!');
       } else {
         // setError('An unknown error has occurred!');
-        window.alert('An unknown error as occurred!');
+        window.alert('An unknown error has occurred!');
       }
     });
   };
